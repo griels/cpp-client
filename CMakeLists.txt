@@ -59,12 +59,12 @@ list(APPEND package_deps thrift)
 hunter_add_package(opentracing-cpp)
 # Not `${hunter_config}` because OpenTracing provides its own
 # OpenTracingConfig.cmake file
-find_package(OpenTracing CONFIG REQUIRED)
-list(APPEND LIBS OpenTracing::opentracing-static)
+find_package(OpenTracing ${hunter_config} REQUIRED)
+list(APPEND LIBS OpenTracing::opentracing)
 list(APPEND package_deps opentracing-cpp)
 
 hunter_add_package(nlohmann_json)
-find_package(nlohmann_json CONFIG REQUIRED)
+find_package(nlohmann_json ${hunter_config} REQUIRED)
 list(APPEND LIBS nlohmann_json)
 list(APPEND package_deps nlohmann_json)
 
@@ -78,7 +78,7 @@ if(JAEGERTRACING_WITH_YAML_CPP)
   hunter_add_package(yaml-cpp)
   # Not `${hunter_config}` because yaml-cpp provides its own
   # yaml-cpp-config.cmake file
-  find_package(yaml-cpp CONFIG REQUIRED)
+  find_package(yaml-cpp ${hunter_config} REQUIRED)
   if(HUNTER_ENABLED)
       list(APPEND LIBS yaml-cpp::yaml-cpp)
   else()
@@ -242,6 +242,10 @@ target_include_directories(jaegertracing-static PUBLIC
 target_link_libraries(jaegertracing-static ${LIBS})
 set_target_properties(jaegertracing-static PROPERTIES
   OUTPUT_NAME jaegertracing)
+
+if (nlohmann_json_INCLUDE_NAME EQUAL "nlohmann/hson.hpp")
+	set(JAEGERTRACING_NLOHMANN_QUALIFIED_PATH 1)
+endif()
 
 configure_file(
   src/jaegertracing/Constants.h.in

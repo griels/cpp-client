@@ -1,0 +1,21 @@
+# Find Thrift library and headers
+#
+# Sets:
+#
+#   THRIFT_FOUND
+#   THRIFT_INCLUDE_DIR
+#   THRIFT_LIBRARIES
+#
+# Cut down from https://github.com/facebookarchive/fblualib
+
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0.0 FATAL_ERROR)
+
+FIND_LIBRARY(THRIFT_LIBRARIES thrift)
+FIND_PATH(THRIFT_INCLUDE_DIR "thrift/Thrift.h")
+
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(
+  Thrift
+  REQUIRED_ARGS
+    THRIFT_INCLUDE_DIR
+    THRIFT_LIBRARY
+    THRIFT_CPP2_LIBRARY)

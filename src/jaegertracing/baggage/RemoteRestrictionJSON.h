@@ -18,9 +18,16 @@
 #define JAEGERTRACING_BAGGAGE_REMOTERESTRICTIONJSON_H
 
 #include <cstdint>
-#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
+
+#include "jaegertracing/Constants.h"
+/* nlohmann json changed locations (in 2.1.0?) */
+#ifdef JAEGERTRACING_NLOHMANN_QUALIFIED_PATH
+  #include <nlohmann/json.hpp>
+#else
+  #include <json.hpp>
+#endif
 
 #include "jaegertracing/thrift-gen/BaggageRestrictionManager.h"
 #include "jaegertracing/thrift-gen/baggage_types.h"

@@ -18,6 +18,7 @@
 #define JAEGERTRACING_CONSTANTS_H
 
 #cmakedefine JAEGERTRACING_WITH_YAML_CPP
+#cmakedefine JAEGERTRACING_NLOHMANN_QUALIFIED_PATH
 
 namespace jaegertracing {
 
